@@ -200,7 +200,7 @@ async fn service_uninstall() -> anyhow::Result<()> {
 
 
 async fn control_connect(state_dir: &std::path::Path, cfg: &config::Config) -> anyhow::Result<tor_control::TorControl> {
-    let cookie = tor_control::discover_control_cookie(state_dir).await?;
+    let cookie = state_dir.join("tor-data").join("control_auth_cookie");
     let addr = format!("127.0.0.1:{}", cfg.tor.control_port);
     let ctl = tor_control::TorControl::connect(&addr, &cookie).await?;
     Ok(ctl)

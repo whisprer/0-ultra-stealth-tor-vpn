@@ -1,4 +1,4 @@
-use anyhow::{Result, bail};
+use anyhow::{Result, bail, Context};
 use std::path::{Path, PathBuf};
 use tokio::{fs, process::Command, io::{AsyncBufReadExt, BufReader}};
 use crate::config::Config;
@@ -9,8 +9,12 @@ pub struct TorInstance {
 
 impl TorInstance {
     pub fn pid(&self) -> i32 { self.pid }
+    
     pub async fn start(cfg: &Config, state_dir: &PathBuf) -> Result<Self> {
-        let tor_path = which::which("tor.exe").or_else(|_| which::which("tor"))?;
+        // Find tor binary - check hint first, then PATH
+        let tor_path = find_tor_binary(cfg)?;
+        println!("[tor] Using: {}", tor_path.display());
+        
         let tor_data = state_dir.join("tor-data");
         fs::create_dir_all(&tor_data).await?;
 
@@ -19,20 +23,27 @@ impl TorInstance {
         let torrc = generate_torrc(cfg, &tor_data)?;
         fs::write(&torrc_path, torrc).await?;
 
-        let mut cmd = Command::new(tor_path);
+        let mut cmd = Command::new(&tor_path);
         cmd.arg("-f").arg(&torrc_path);
         cmd.stdout(std::process::Stdio::piped());
         cmd.stderr(std::process::Stdio::piped());
-        let mut child = cmd.spawn()?;
+        let mut child = cmd.spawn()
+            .with_context(|| format!("Failed to spawn tor at: {}", tor_path.display()))?;
         let pid = child.id().unwrap_or_default() as i32;
 
         // Monitor bootstrap from stdout
+        println!("[tor] Waiting for bootstrap...");
         if let Some(out) = child.stdout.take() {
             let mut reader = BufReader::new(out).lines();
             let mut boot = 0u8;
             while let Some(line) = reader.next_line().await? {
                 if let Some(p) = parse_bootstrap_percent(&line) {
-                    if p > boot { boot = p; }
+                    if p > boot { 
+                        boot = p; 
+                        if boot % 25 == 0 || boot >= 100 {
+                            println!("[tor] Bootstrap: {}%", boot);
+                        }
+                    }
                     if boot >= 100 {
                         break;
                     }
@@ -42,8 +53,54 @@ impl TorInstance {
                 }
             }
         }
+        println!("[tor] Bootstrap complete, PID: {}", pid);
         Ok(Self { pid })
     }
+}
+
+fn find_tor_binary(cfg: &Config) -> Result<PathBuf> {
+    // 1. Check tor_path_hint from config
+    if let Some(hint) = &cfg.tor.tor_path_hint {
+        if !hint.is_empty() {
+            let path = PathBuf::from(hint);
+            if path.exists() {
+                return Ok(path);
+            }
+            // Maybe it's just "tor" and we need to find it
+            if let Ok(found) = which::which(hint) {
+                return Ok(found);
+            }
+        }
+    }
+    
+    // 2. Try common Windows locations
+    let common_paths = [
+        r"C:\Program Files\Tor Browser\Browser\TorBrowser\Tor\tor.exe",
+        r"C:\Program Files (x86)\Tor Browser\Browser\TorBrowser\Tor\tor.exe",
+        r"C:\Tools\Tor\tor.exe",
+        r"C:\Tor\tor.exe",
+    ];
+    for p in common_paths {
+        let path = PathBuf::from(p);
+        if path.exists() {
+            return Ok(path);
+        }
+    }
+    
+    // 3. Try PATH
+    if let Ok(found) = which::which("tor.exe") {
+        return Ok(found);
+    }
+    if let Ok(found) = which::which("tor") {
+        return Ok(found);
+    }
+    
+    bail!(
+        "Cannot find tor.exe. Please either:\n\
+         1. Add Tor to your PATH, or\n\
+         2. Set tor_path_hint in your profile TOML, or\n\
+         3. Install Tor Browser (we check common locations)"
+    )
 }
 
 fn parse_bootstrap_percent(line: &str) -> Option<u8> {
@@ -91,8 +148,7 @@ pub async fn apply_proxy_and_exit(cfg: &crate::config::Config, state_dir: &std::
     use crate::tor_control::TorControl;
     use crate::proxy_manager::ProxyManager;
     use tokio::time::{sleep, Duration};
-    let cookie = crate::tor_control::discover_control_cookie(state_dir).await
-        .unwrap_or_else(|_| state_dir.join("tor-data").join("control_auth_cookie"));
+    let cookie = state_dir.join("tor-data").join("control_auth_cookie");
     let addr = format!("127.0.0.1:{}", cfg.tor.control_port);
     let mut ctl = TorControl::connect(&addr, &cookie).await?;
 

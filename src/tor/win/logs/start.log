@@ -1,0 +1,12 @@
+﻿[2026-02-07 01:41:10] [torvpn] start requested
+[2026-02-07 01:41:10] [torvpn] exe:       D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+[2026-02-07 01:41:10] [torvpn] profile:   D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\profiles\default_win.toml
+[2026-02-07 01:41:10] [torvpn] state_dir: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\state
+[2026-02-07 01:41:10] [torvpn] launching torvpn-win start...
+[2026-02-07 01:41:11] EXCEPTION: System.Management.Automation.RemoteException: At line:36 char:16
+[2026-02-07 02:00:40] [torvpn] start requested
+[2026-02-07 02:00:40] [torvpn] exe:       D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+[2026-02-07 02:00:40] [torvpn] profile:   D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\profiles\default_win.toml
+[2026-02-07 02:00:40] [torvpn] state_dir: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\state
+[2026-02-07 02:00:40] [torvpn] launching torvpn-win start...
+[2026-02-07 02:00:41] EXCEPTION: System.Management.Automation.RemoteException: At line:36 char:16

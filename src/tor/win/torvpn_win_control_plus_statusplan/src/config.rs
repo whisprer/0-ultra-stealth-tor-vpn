@@ -1,4 +1,4 @@
-use anyhow::{Result, Context};
+use anyhow::Result;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -52,7 +52,6 @@ pub struct PqcCfg {
 }
 
 use tokio::fs;
-// (no std::path imports needed here)
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Config {
@@ -90,12 +89,10 @@ pub struct Tun2SocksCfg {
 
 pub async fn load_or_default(profile: Option<&std::path::Path>) -> Result<Config> {
     if let Some(p) = profile {
-        let bytes = fs::read(p).await
-            .with_context(|| format!("reading config TOML at {}", p.display()))?;
-        let s = String::from_utf8(bytes)
-            .with_context(|| format!("config TOML is not valid UTF-8: {}", p.display()))?;
-        let cfg: Config = toml::from_str(&s)
-            .with_context(|| format!("parsing TOML at {}", p.display()))?;
+        let bytes = fs::read(p).await?;
+        // FIX: toml crate doesn't have from_slice, convert to string first
+        let text = String::from_utf8(bytes)?;
+        let cfg: Config = toml::from_str(&text)?;
         Ok(cfg)
     } else {
         let s = include_str!("../profiles/default_win.toml");
