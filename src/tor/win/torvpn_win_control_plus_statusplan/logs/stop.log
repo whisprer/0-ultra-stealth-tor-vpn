@@ -1,0 +1,25 @@
+﻿[2026-02-13 20:49:32] [torvpn] stop requested
+[2026-02-13 20:49:32] [torvpn] exe:       D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+[2026-02-13 20:49:32] [torvpn] profile:   D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\profiles\default_win.toml
+[2026-02-13 20:49:32] [torvpn] state_dir: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\state
+[2026-02-13 20:49:32] EXCEPTION: System.Management.Automation.RemoteException: ERROR: The process "14968" not found.
+[2026-02-14 01:25:25] [torvpn] stop requested
+[2026-02-14 01:25:25] [torvpn] exe:       D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+[2026-02-14 01:25:25] [torvpn] profile:   D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\profiles\default_win.toml
+[2026-02-14 01:25:25] [torvpn] state_dir: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\state
+[2026-02-14 01:25:26] EXCEPTION: System.Management.Automation.RemoteException: ERROR: The process "14968" not found.
+[2026-02-14 02:25:51] [torvpn] stop requested
+[2026-02-14 02:25:51] [torvpn] exe:       D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+[2026-02-14 02:25:51] [torvpn] profile:   D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\profiles\default_win.toml
+[2026-02-14 02:25:51] [torvpn] state_dir: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\state
+[2026-02-14 02:25:52] EXCEPTION: System.Management.Automation.RemoteException: ERROR: The process "14968" not found.
+[2026-02-14 03:35:18] [torvpn] stop requested
+[2026-02-14 03:35:18] [torvpn] exe:       D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+[2026-02-14 03:35:18] [torvpn] profile:   D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\profiles\default_win.toml
+[2026-02-14 03:35:18] [torvpn] state_dir: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\state
+[2026-02-14 03:35:18] EXCEPTION: System.Management.Automation.RemoteException: ERROR: The process "14968" not found.
+[2026-02-14 03:53:18] [torvpn] stop requested
+[2026-02-14 03:53:18] [torvpn] exe:       D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+[2026-02-14 03:53:18] [torvpn] profile:   D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\profiles\default_win.toml
+[2026-02-14 03:53:18] [torvpn] state_dir: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\state
+[2026-02-14 03:53:18] EXCEPTION: System.Management.Automation.RemoteException: Error: program not found

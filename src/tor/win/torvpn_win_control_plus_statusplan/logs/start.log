@@ -10,3 +10,9 @@
 [2026-02-07 02:00:40] [torvpn] state_dir: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\state
 [2026-02-07 02:00:40] [torvpn] launching torvpn-win start...
 [2026-02-07 02:00:41] EXCEPTION: System.Management.Automation.RemoteException: At line:36 char:16
+[2026-02-13T18:44:51] start: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+EXCEPTION: System.Management.Automation.RemoteException: At line:36 char:16
+[2026-02-14T03:27:12] start: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+EXCEPTION: System.Management.Automation.RemoteException: New-NetFirewallRule : The application contains invalid characters or is an invalid length.
+[2026-02-14T03:29:18] start: D:\code\0-ultra-stealth-tor-vpn\src\tor\win\torvpn_win_control_plus_statusplan\target\release\torvpn_win.exe
+EXCEPTION: System.Management.Automation.RemoteException: New-NetFirewallRule : The application contains invalid characters or is an invalid length.
